@@ -1,4 +1,4 @@
-// === 📁 pages/Board.jsx ===
+
 import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { useNavigate } from "react-router-dom";
@@ -24,12 +24,9 @@ const Board = () => {
   const [showAddTask, setShowAddTask] = useState(false);
   const [showLogPanel, setShowLogPanel] = useState(false);
   const [users, setUsers] = useState([]);
+  const socket = useRef(null);
 
   const navigate = useNavigate();
-  const socket = io("http://localhost:7000", {
-    transports: ["websocket"],
-    withCredentials: true, // ✅ Required for cookie or token-based auth
-  }); // ✅ useRef for socket instance
 
   const fetchTasks = async () => {
     try {
@@ -65,6 +62,8 @@ const Board = () => {
         ...prev,
         todo: [createdTask, ...prev.todo],
       }));
+
+      socket.current.emit("task-change"); // Notify all to refresh
     } catch (err) {
       console.error("❌ Failed to create task:", err);
     }
@@ -99,6 +98,7 @@ const Board = () => {
 
     try {
       await updateTask(movedTask._id, { status: movedTask.status });
+      socket.current.emit("task-change"); // Real-time emit
     } catch (err) {
       console.error("❌ Failed to update task:", err);
     }
@@ -111,7 +111,6 @@ const Board = () => {
       return;
     }
 
-    // ✅ Initialize socket only once
     socket.current = io("http://localhost:7000", {
       transports: ["websocket"],
       withCredentials: true,
@@ -123,7 +122,7 @@ const Board = () => {
     fetchUsers();
 
     return () => {
-      socket.current.off("refresh-tasks", fetchTasks);
+      socket.current.disconnect();
     };
   }, []);
 
@@ -152,7 +151,7 @@ const Board = () => {
             className="add-task-btn"
             onClick={() => setShowLogPanel(true)}
           >
-            📜 View Activity Log
+            View Activity Log
           </button>
         </div>
 
@@ -184,7 +183,12 @@ const Board = () => {
           />
         )}
 
-        {showLogPanel && <ActivityLog onClose={() => setShowLogPanel(false)} />}
+        {showLogPanel && (
+          <ActivityLog
+            onClose={() => setShowLogPanel(false)}
+            socket={socket.current}
+          />
+        )}
       </div>
     </>
   );

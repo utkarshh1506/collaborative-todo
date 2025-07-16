@@ -1,11 +1,9 @@
+
 import React, { useEffect, useState, useRef } from "react";
 import "./ActivityLog.css";
-import { io } from "socket.io-client";
 import axios from "axios";
 
-const socket = io("http://localhost:7000"); // Adjust if using env or hosted
-
-const ActivityLog = ({ onClose }) => {
+const ActivityLog = ({ onClose, socket }) => {
   const [logs, setLogs] = useState([]);
   const panelRef = useRef();
   const logEndRef = useRef();
@@ -27,7 +25,9 @@ const ActivityLog = ({ onClose }) => {
   useEffect(() => {
     fetchLogs();
 
-    socket.on("new-activity", fetchLogs); // Listen for real-time log updates
+    if (socket) {
+      socket.on("new-activity", fetchLogs);
+    }
 
     const handleClickOutside = (e) => {
       if (panelRef.current && !panelRef.current.contains(e.target)) {
@@ -39,7 +39,9 @@ const ActivityLog = ({ onClose }) => {
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      socket.off("new-activity", fetchLogs); // Clean up listener only
+      if (socket) {
+        socket.off("new-activity", fetchLogs);
+      }
     };
   }, []);
 
@@ -55,7 +57,7 @@ const ActivityLog = ({ onClose }) => {
         <button className="close-btn" onClick={onClose}>
           ×
         </button>
-        <h2>🕘 Activity Log</h2>
+        <h2>Activity Log</h2>
         <div className="log-list">
           {logs.length === 0 ? (
             <p className="empty">No activity yet.</p>
@@ -77,7 +79,7 @@ const ActivityLog = ({ onClose }) => {
               </div>
             ))
           )}
-          <div ref={logEndRef} /> {/* Scrolls to bottom */}
+          <div ref={logEndRef} />
         </div>
       </div>
     </div>
