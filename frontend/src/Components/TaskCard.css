@@ -69,3 +69,14 @@
     font-weight: 700;
     text-decoration: underline;
 }
+.edit-btn{
+  background-color: #fff;
+  color: black;
+  font-size: 15px;
+}
+
+.priority-line{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

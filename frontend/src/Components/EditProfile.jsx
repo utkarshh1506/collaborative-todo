@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./EditProfile.css";
 
 const EditProfile = ({ onClose }) => {
-  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [name, setName] = useState(user?.name || "");

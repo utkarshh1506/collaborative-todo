@@ -1,10 +1,10 @@
 import { Droppable } from "@hello-pangea/dnd";
-import TaskCard from "./TaskCard"; // or whatever your task component is
+import TaskCard from "./TaskCard";
 import { Draggable } from "@hello-pangea/dnd";
 
-const Column = ({ columnId, title, tasks }) => {
+const Column = ({ columnId, title, tasks, onEdit }) => {
   return (
-    <div className="column" style={{width:'300px'}}>
+    <div className="column" style={{ width: "300px" }}>
       <h3>{title}</h3>
       <Droppable droppableId={columnId}>
         {(provided) => (
@@ -13,9 +13,9 @@ const Column = ({ columnId, title, tasks }) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
             style={{
-              minHeight: "200px", // 👈 makes column visible when empty
+              minHeight: "200px",
               padding: "10px",
-              background: "#f8f8f8", // 👈 light background to differentiate
+              background: "#f8f8f8",
               borderRadius: "10px",
               transition: "background 0.2s ease",
             }}
@@ -29,7 +29,7 @@ const Column = ({ columnId, title, tasks }) => {
                     {...provided.dragHandleProps}
                     className="task-card"
                   >
-                    <TaskCard task={task} />
+                    <TaskCard task={task} onEdit={onEdit} />
                   </div>
                 )}
               </Draggable>

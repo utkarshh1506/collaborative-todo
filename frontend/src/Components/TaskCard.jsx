@@ -1,7 +1,7 @@
 import React from "react";
 import "./TaskCard.css";
 
-const TaskCard = ({ task }) => {
+const TaskCard = ({ task, onEdit }) => {
   const {
     title,
     description,
@@ -33,8 +33,17 @@ const TaskCard = ({ task }) => {
 
   return (
     <div className="task-card">
-      <div className={`priority-badge ${getPriorityColor(priority)}`}>
-        {priority}
+      <div className="priority-line">
+        <div className={`priority-badge ${getPriorityColor(priority)}`}>
+          {priority}
+        </div>
+        <button
+          className="edit-btn"
+          onClick={() => onEdit(task)}
+          style={{ marginTop: "0.5rem" }}
+        >
+          Edit
+        </button>
       </div>
 
       <p className="title">{title}</p>
@@ -59,7 +68,7 @@ const TaskCard = ({ task }) => {
               }
               alt={assignedTo.name || "User"}
               className="avatar"
-              title={assignedTo.name || 'User'}
+              title={assignedTo.name || "User"}
             />
           )}
         </div>

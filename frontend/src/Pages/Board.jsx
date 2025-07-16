@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { useNavigate } from "react-router-dom";
@@ -6,11 +5,13 @@ import Column from "../Components/Column";
 import MainNavbar from "../Components/MainNavbar";
 import AddTask from "../Components/AddTask";
 import ActivityLog from "../Components/ActivityLog";
+import EditTask from "../Components/EditTask";
 import {
   getAllTasks,
   updateTask,
   getAllUsers,
   createTask,
+  deleteTask,
 } from "../Services/api";
 import { io } from "socket.io-client";
 import "./Board.css";
@@ -23,9 +24,10 @@ const Board = () => {
   });
   const [showAddTask, setShowAddTask] = useState(false);
   const [showLogPanel, setShowLogPanel] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [users, setUsers] = useState([]);
   const socket = useRef(null);
-
   const navigate = useNavigate();
 
   const fetchTasks = async () => {
@@ -63,9 +65,36 @@ const Board = () => {
         todo: [createdTask, ...prev.todo],
       }));
 
-      socket.current.emit("task-change"); // Notify all to refresh
+      socket.current.emit("task-change");
     } catch (err) {
       console.error("❌ Failed to create task:", err);
+    }
+  };
+
+  const handleEditTaskClick = (task) => {
+    setSelectedTask(task);
+    setShowEdit(true);
+  };
+
+  const handleUpdateTask = async (updatedData) => {
+    try {
+      await updateTask(updatedData.id, updatedData);
+      await fetchTasks();
+      socket.current.emit("task-change");
+      setShowEdit(false);
+    } catch (err) {
+      console.error("❌ Failed to update task:", err);
+    }
+  };
+
+  const handleDeleteTask = async (id) => {
+    try {
+      await deleteTask(id);
+      await fetchTasks();
+      socket.current.emit("task-change");
+      setShowEdit(false);
+    } catch (err) {
+      console.error("❌ Failed to delete task:", err);
     }
   };
 
@@ -98,7 +127,7 @@ const Board = () => {
 
     try {
       await updateTask(movedTask._id, { status: movedTask.status });
-      socket.current.emit("task-change"); // Real-time emit
+      socket.current.emit("task-change");
     } catch (err) {
       console.error("❌ Failed to update task:", err);
     }
@@ -165,13 +194,24 @@ const Board = () => {
               flexWrap: "wrap",
             }}
           >
-            <Column columnId="todo" title="Todo" tasks={columns.todo} />
+            <Column
+              columnId="todo"
+              title="Todo"
+              tasks={columns.todo}
+              onEdit={handleEditTaskClick}
+            />
             <Column
               columnId="inProgress"
               title="In Progress"
               tasks={columns.inProgress}
+              onEdit={handleEditTaskClick}
             />
-            <Column columnId="done" title="Completed" tasks={columns.done} />
+            <Column
+              columnId="done"
+              title="Completed"
+              tasks={columns.done}
+              onEdit={handleEditTaskClick}
+            />
           </div>
         </DragDropContext>
 
@@ -187,6 +227,16 @@ const Board = () => {
           <ActivityLog
             onClose={() => setShowLogPanel(false)}
             socket={socket.current}
+          />
+        )}
+
+        {showEdit && selectedTask && (
+          <EditTask
+            task={selectedTask}
+            onClose={() => setShowEdit(false)}
+            onSave={handleUpdateTask}
+            onDelete={handleDeleteTask}
+            users={users}
           />
         )}
       </div>
