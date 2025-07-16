@@ -1,0 +1,28 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+.button-side{
+    display: flex;
+    gap: 40px;
+}
+.button-side a{
+    text-decoration: none;
+    color: black;
+    font-size: 22px;
+    font-weight: 600;
+}
+.button-side a:hover{
+    color: rgb(78, 78, 241);
+}
+
+.navbar h1{
+    font-size: 40px;
+}

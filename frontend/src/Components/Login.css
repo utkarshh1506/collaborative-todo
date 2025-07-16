@@ -1,0 +1,93 @@
+/* Components/LoginCard.css */
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  width: 300px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.login-card input {
+    display: flex;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.login-btn:hover{
+    transform: scale(1.04);
+    transition: 0.3s;
+    background: linear-gradient(180deg, whitesmoke -5.09%, black 100%);
+    color: black;
+}
+
+.login-card h2{
+    font-size: 40px;
+    font-weight: 800;
+    background: linear-gradient(180deg, whitesmoke -5.09%, black 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color:  transparent;
+    text-align: center;
+}
+.inputs{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.inputs input{
+    width: 93%;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 50px;
+    padding-left: 20px;
+    border:  1px solid grey;
+}
+
+.links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.links a{
+    text-decoration: none;
+}
+.links a:hover{
+    color: blue;
+}

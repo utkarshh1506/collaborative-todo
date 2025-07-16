@@ -1,0 +1,76 @@
+.activity-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.activity-panel {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: white;
+  position: relative;
+}
+
+.activity-panel h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.log-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.log-item {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.75rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.log-text {
+  margin-bottom: 0.2rem;
+  color: #f0f0f0;
+}
+
+.log-time {
+  font-size: 0.75rem;
+  color: #ccc;
+  text-align: right;
+}
+
+.empty {
+  text-align: center;
+  color: #eee;
+  font-style: italic;
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 1.5rem;
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}

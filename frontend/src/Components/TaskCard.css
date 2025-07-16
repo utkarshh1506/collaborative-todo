@@ -1,0 +1,71 @@
+.task-card {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 12px;
+  background: white;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.priority-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.priority-badge.green { background-color: #48bb78; }
+.priority-badge.orange { background-color: #ed8936; }
+.priority-badge.red { background-color: #f56565; }
+
+.description {
+  font-size: 14px;
+  margin-bottom: 8px;
+  word-wrap: break-word;
+}
+
+.labels {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.label-badge {
+  font-size: 12px;
+  background-color: #eee;
+  color: #333;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  font-size: 12px;
+  color: #888;
+}
+
+.avatars {
+  display: flex;
+  gap: 4px;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+}
+.title{
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: underline;
+}

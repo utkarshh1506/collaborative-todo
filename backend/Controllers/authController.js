@@ -4,10 +4,15 @@ const jwt = require('jsonwebtoken')
 
 exports.register = async(req , res)=>{
     try {
-        const {name, email, password} = req.body
-        if(!name || !email || !password){
+        const {name, email, password, confirmPassword} = req.body
+        if(!name || !email || !password ||!confirmPassword){
             return res.status(400).json({
                 message: "Name, Email, Password are required"
+            })
+        }
+        if(password !== confirmPassword){
+            return res.status(404).json({
+                message:"Confirm Password Doesn't Matches"
             })
         }
 
@@ -25,7 +30,7 @@ exports.register = async(req , res)=>{
             password:hashed
         })
         const token = jwt.sign({id: newUser._id}, process.env.JWT_SECRET,{expiresIn:'1d'})
-        return res.status(200).json({user:{name:newUser.name,email:newUser.email},token})
+        return res.status(200).json({user:{_id:newUser._id,name:newUser.name,email:newUser.email},token})
     } catch (error) {
         return res.status(500).json({
             message:"Registration Failed",
@@ -50,7 +55,7 @@ exports.login = async(req , res)=>{
         }
 
         const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'1d'})
-        return res.json({user:{name:user.name,email:user.email},token})
+        return res.json({user:{_id:user._id,name:user.name,email:user.email, profilePicture: user.profilePicture},token})
     } catch (error) {
         return res.status(500).json({ message: "Login failed", error: error.message });
     }

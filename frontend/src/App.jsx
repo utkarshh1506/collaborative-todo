@@ -1,19 +1,20 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
-import Board from './Pages/Board';
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Board from './Pages/Board'
+import Landing from './Pages/Landing'
+import EditProfile from './Components/EditProfile'
+import Login from './Components/Login'
 
-function App() {
-  const isLoggedIn = localStorage.getItem('token');
-
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to={isLoggedIn ? "/board" : "/login"} />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/board" element={isLoggedIn ? <Board /> : <Navigate to="/login" />} />
-    </Routes>
-  );
+    <>
+      <Routes>
+        <Route path='/' element={<Landing/>}/>
+        <Route path="/home" element={<Landing />} />
+        <Route path="/board" element={<Board />} />
+      </Routes>
+    </>  
+  )
 }
 
-export default App;
+export default App

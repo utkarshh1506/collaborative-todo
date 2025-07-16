@@ -1,0 +1,83 @@
+.edit-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.edit-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.edit-card h2{
+    text-align: center;
+    font-size: 30px;
+}
+
+.edit-card form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.edit-card form input{
+    border-radius: 50px;
+    padding: 10px;
+    padding-left: 15px;
+    border: 1px solid black;
+}
+
+
+.profile-image {
+  width: 80px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit:fill;
+  margin: 0 auto 1rem;
+  display: block;
+  border: 2px solid #ccc;
+}
+
+button{
+    padding: 10px;
+    border-radius: 50px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+button:hover{
+    transform: scale(1.04);
+    transition: 0.3s;
+    background: linear-gradient(180deg, whitesmoke -5.09%, black 100%);
+    color: black;
+}
+
+.edit-card form input[type="file"] {
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: none;
+  padding: 10px;
+  font-family: inherit;
+}
+
+
+

@@ -1,0 +1,43 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero-section{
+    display: flex;
+    padding-bottom: 20px;
+
+}
+
+.text-side{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 80%;
+}
+.text-side h1{
+    font-size: 90px;
+    font-weight: 900;
+    margin-bottom: 0;
+    color: whitesmoke;
+    background: linear-gradient(180deg, whitesmoke 10%, black 100%);
+    background-clip:text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.text-side h2{
+    font-size: 50px;
+    font-weight: 300;
+}
+
+.image{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    padding-right:100px
+}
+
+.image img{
+    height:400px;
+}
