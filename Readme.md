@@ -9,7 +9,6 @@ A sleek, real-time collaborative task management board with drag-and-drop, authe
 **Frontend:**
 - React (with Vite)
 - Socket.IO client
-- Tailwind / CSS modules
 
 **Backend:**
 - Express (Node.js)
