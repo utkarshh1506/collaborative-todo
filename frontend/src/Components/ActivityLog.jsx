@@ -11,7 +11,7 @@ const ActivityLog = ({ onClose, socket }) => {
   const fetchLogs = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:7000/api/logs", {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/logs`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

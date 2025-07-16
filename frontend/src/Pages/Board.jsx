@@ -140,7 +140,7 @@ const Board = () => {
       return;
     }
 
-    socket.current = io("http://localhost:7000", {
+    socket.current = io(`${import.meta.env.VITE_API_BASE_URL}`, {
       transports: ["websocket"],
       withCredentials: true,
     });

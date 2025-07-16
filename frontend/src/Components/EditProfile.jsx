@@ -54,7 +54,7 @@ const EditProfile = ({ onClose }) => {
         profilePicture: imageUrl,
       };
 
-      const res = await fetch(`http://localhost:7000/api/users/${user._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/${user._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
