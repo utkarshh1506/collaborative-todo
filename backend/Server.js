@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
 });
 
 // ✅ Middleware
-app.use(cors({ origin: "https://collaborative-todo-three.vercel.app", credentials: true }));
+app.use(cors({ origin: ["https://collaborative-todo-three.vercel.app", "https://taskflow-collaborative.vercel.app"], credentials: true }));
 app.use(express.json());
 
 // ✅ API Routes
