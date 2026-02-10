@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Company {
+  id                       Int      @id @default(autoincrement())
+  uid                      String   @unique @db.VarChar(8)
+
+  name                     String   @db.VarChar(255)
+  description              String?  @db.Text
+  logo                     String?  @db.Text
+
+  contact_person_name      String?  @db.VarChar(255)
+  contact_person_phone_number String? @db.VarChar(255)
+  contact_person_email     String?  @db.VarChar(255)
+
+  status                   CompanyStatus @default(PENDING)
+  is_verified              Boolean  @default(false)
+
+  account_manager          Int?
+
+  
+  users                    User[]
+
+  created_at               DateTime @default(now())
+  updated_at               DateTime @updatedAt
+
+  @@index([uid])
+}
+
+enum CompanyStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+}
+
+model User {
+  id                 Int      @id @default(autoincrement())
+  uid                String?  @unique @db.VarChar(8)
+
+  // Foreign key
+  company_id         Int?
+  company            Company? @relation(fields: [company_id], references: [id], onDelete: Cascade)
+
+  role               UserRole @default(MEMBER)
+
+  email              String   @unique @db.VarChar(255)
+  password           String   @db.VarChar(255)
+
+  phone              String?  @unique @db.VarChar(255)
+
+  first_name         String   @db.VarChar(255)
+  last_name          String   @db.VarChar(255)
+
+  date_of_birth      DateTime? @db.Date
+  gender             Gender?
+
+  profile_photo      String?  @db.Text
+
+  is_email_verified  Boolean  @default(false)
+  is_phone_verified  Boolean  @default(false)
+
+  last_login_at      DateTime?
+
+  is_active          Boolean  @default(true)
+
+  created_at         DateTime @default(now())
+  updated_at         DateTime @updatedAt
+
+  @@index([uid])
+  @@index([company_id]) // Important for performance
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum UserRole {
+  MANAGER
+  MEMBER
+}
