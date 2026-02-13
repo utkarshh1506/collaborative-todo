@@ -19,24 +19,14 @@ model Company {
   contact_person_phone_number String? @db.VarChar(255)
   contact_person_email     String?  @db.VarChar(255)
 
-  status                   CompanyStatus @default(PENDING)
-  is_verified              Boolean  @default(false)
-
   account_manager          Int?
 
-  
   users                    User[]
 
   created_at               DateTime @default(now())
   updated_at               DateTime @updatedAt
 
   @@index([uid])
-}
-
-enum CompanyStatus {
-  PENDING
-  ACTIVE
-  REJECTED
 }
 
 model User {
